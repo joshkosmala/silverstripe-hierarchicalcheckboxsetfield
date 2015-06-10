@@ -1,21 +1,21 @@
 {
-  "name": "joshkosmala/silverstripe-heirarchicalcheckboxsetfield",
+  "name": "joshkosmala/silverstripe-hierarchicalcheckboxsetfield",
   "description": "A SilverStripe form field for adding nested checkboxes using parent and child dataobjects",
   "type": "silverstripe-module",
-  "homepage": "https://github.com/joshkosmala/silverstripe-heirarchicalcheckboxsetfield",
+  "homepage": "https://github.com/joshkosmala/silverstripe-hierarchicalcheckboxsetfield",
   "keywords": ["silverstripe", "silverstripe-forms", "cwp", "common web platform"],
   "license": "MIT",
   "authors": [
     {"name": "Josh Kosmala","email": "josh@novaweb.co.nz"}
   ],
   "support": {
-    "issues": "https://github.com/joshkosmala/silverstripe-heirarchicalcheckboxsetfield/issues"
+    "issues": "https://github.com/joshkosmala/silverstripe-hierarchicalcheckboxsetfield/issues"
   },
   "require": {
     "silverstripe/cms": "~3.1",
     "silverstripe/framework": "~3.1"
   },
   "extra": {
-    "installer-name": "heirarchicalcheckboxsetfield"
+    "installer-name": "hierarchicalcheckboxsetfield"
   }
 }
