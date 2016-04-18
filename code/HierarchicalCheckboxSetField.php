@@ -83,7 +83,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 			foreach($source as $value => $item) {
 				if($item instanceof DataObject) {
 					$value = $item->ID;
-					$title = $item->Title;
+					$title = $item->getFullTitle();
 				} else {
 					$title = $item;
 				}
