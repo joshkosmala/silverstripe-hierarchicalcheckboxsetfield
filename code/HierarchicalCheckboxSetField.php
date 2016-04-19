@@ -4,19 +4,19 @@
  * Hierarchical Checkbox Set Field
  */
 class HierarchicalCheckboxSetField extends CheckboxSetField {
-	
+
 	protected $childsource;
 	protected $childfilter = null;
 	protected $childsort = null;
 	protected $disableparentswithchildren = false;
-	
+
 	function __construct($name, $title = "", $source = array(), $childsource = null , $value = "", $form = null, $childfilter = null) {
 		parent::__construct($name, $title, $source, $value, $form);
-		
+
 		$this->childsource = $childsource;
 		$this->childfilter = $childfilter;
 	}
-	
+
 	/**
 	 * @todo Explain different source data that can be used with this field,
 	 * e.g. SQLMap, DataObjectSet or an array.
@@ -73,7 +73,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 				}
 			}
 		}
-			
+
 		$odd = 0;
 		$options = array();
 
@@ -83,7 +83,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 			foreach($source as $value => $item) {
 				if($item instanceof DataObject) {
 					$value = $item->ID;
-					$title = $item->Title;
+					$title = $item->getTitleWithCode();
 				} else {
 					$title = $item;
 				}
@@ -150,7 +150,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 			);
 			$options[] = new ArrayData($data);
 		}
-			
+
 		return new ArrayList($options);
 	}
 
@@ -189,7 +189,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 
 		return array($values);
 	}
-	
+
 	protected function getItemHTMLID($id) {
 		return $this->ID() . '_' . preg_replace('/[^a-zA-Z0-9]/', '', $id);
 	}
@@ -211,7 +211,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 
 		return $this;
 	}
-	
+
 	/**
 	 * Save the current value of this CheckboxSetField into a DataObject.
 	 * If the field it is saving to is a has_many or many_many relationship,
@@ -230,7 +230,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 					$idList[] = $id;
 				}
 				//TODO: include support for setting $record->has_many($this->childsorce) and many_many($this->childsource) values
-			}						
+			}
 			$record->$fieldname()->setByIDList($idList);
 		} elseif($fieldname && $record) {
 			if($this->value) {
@@ -240,15 +240,15 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 			}
 		}
 	}
-	
+
 	/**
-	 * Return the HierarchicalCheckboxSetField value as an string 
+	 * Return the HierarchicalCheckboxSetField value as an string
 	 * selected item keys, with sub arrays in square brackets.
-	 * 
+	 *
 	 * TODO: would this be better as JSON, or some specific format?
 	 * current format: 1,2,3[2,3,4,6],3,5[3,23],4
 	 * JSON: 1,2,3,4,5:{3,5,6}
-	 * 
+	 *
 	 * @return string
 	 */
 	function dataValue() {
@@ -259,7 +259,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 
 		return '';
 	}
-	
+
 	/**
 	 * Helper function for building values string.
 	 */
@@ -275,11 +275,11 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 
 		return implode(',', $filtered);
 	}
-	
+
 	/**
 	 * Transforms the source data for this CheckboxSetField
 	 * into a comma separated list of values.
-	 * 
+	 *
 	 * @return ReadonlyField
 	 */
 	function performReadonlyTransformation() {
@@ -300,7 +300,7 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 					$data[] = $item->Title;
 				}
 				if($data){
-					$values = implode(', ', $data);	
+					$values = implode(', ', $data);
 				}
 			// Items is an array or single piece of string (including comma seperated string)
 			} else {
@@ -326,12 +326,12 @@ class HierarchicalCheckboxSetField extends CheckboxSetField {
 		$title = ($this->title) ? $this->title : '';
 		$field = new ReadonlyField($this->name, $title, $values);
 		$field->setForm($this->form);
-		
+
 		return $field;
 	}
-	
+
 	function ExtraOptions() {
 		return FormField::ExtraOptions();
 	}
-	
+
 }
